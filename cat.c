@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     int fd = open(filepath,O_RDONLY,0444);
     if(fd == -1)
     {
-        printf("Error opening file");
+        perror("Error opening file");
         return 1;
     }
     // TODO: Step 3 & 4 - Read from the file and write to standard output.
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
         while (total_wrote < bytes_read) {
             bytes_wrote = write(STDOUT_FILENO, buffer + total_wrote, bytes_read - total_wrote);
             if (bytes_wrote == -1) {
-                printf("Error writing");
+                fprintf(stderr,"Error writing");
                 close(fd);
                 return 1;
             }
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
     }
     if (bytes_read == -1)
     {
-       printf("Error reading");
+       fprintf(stderr,"Error reading");
        close(fd);
        return 1;
     }
@@ -83,4 +83,5 @@ int main(int argc, char *argv[]) {
     }
  
     return 0; // Return 0 for success.
+
 }
